@@ -1,73 +1,63 @@
 ﻿@model Garage2.Models.Vehicle
-
 @{
 	ViewBag.Title = "Delete";
 }
-
 <h2>Check out</h2>
+<h3>Are you sure you want to Check out this?</h3>
 @using (Html.BeginForm())
 {
 	@Html.AntiForgeryToken()
-	<h3>Are you sure you want to Check out this?</h3>
-	<div>
-		<h4>Vehicle</h4>
+
+	<div class="form-horizontal">
+		
 		<hr />
 		<dl class="dl-horizontal">
 			<dt>
 				@Html.DisplayNameFor(model => model.Reg)
 			</dt>
-
 			<dd>
 				@Html.DisplayFor(model => model.Reg)
 			</dd>
-
 			<dt>
 				@Html.DisplayNameFor(model => model.Type)
 			</dt>
-
 			<dd>
 				@Html.DisplayFor(model => model.Type)
 			</dd>
-
 			<dt>
 				@Html.DisplayNameFor(model => model.Brand)
 			</dt>
-
 			<dd>
 				@Html.DisplayFor(model => model.Brand)
 			</dd>
-
 			<dt>
 				@Html.DisplayNameFor(model => model.Color)
 			</dt>
-
 			<dd>
 				@Html.DisplayFor(model => model.Color)
 			</dd>
-
 			<dt>
 				@Html.DisplayNameFor(model => model.Wheels)
 			</dt>
-
 			<dd>
 				@Html.DisplayFor(model => model.Wheels)
 			</dd>
-
 			<dt>
 				@Html.DisplayNameFor(model => model.CheckIn)
 			</dt>
-
 			<dd>
 				@Html.DisplayFor(model => model.CheckIn)
 			</dd>
 
 		</dl>
 	</div>
-
-	<div class="form-actions no-color">
-		<input type="submit" value="Check out" class="btn btn-danger" />
-
+	<div class="form-group">
+		<div class="col-md-offset-2 col-md-10">
+	<input type="submit" value="CheckOut" class="btn btn-danger" />
+		</div>
 	</div>
+	@Html.ActionLink("Back to Parked Vehicles", "Index")
 }
-
-<div>@Html.ActionLink("Back to Parked Vehicles", "Index")</div>
+@section Scripts {
+	@Scripts.Render("~/bundles/jqueryval")
+}
