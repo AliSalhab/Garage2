@@ -9,7 +9,7 @@ namespace Garage2.Database
 {
 	public class VehicleDb : DbContext
 	{
-		public VehicleDb() :base("DbConnection")
+		public VehicleDb() :base("BaseDb")
 		{
 
 		}

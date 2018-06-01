@@ -22,15 +22,11 @@ namespace Garage2.Controllers
 		}
 
 		public ActionResult Receipt(Vehicle vehicle)
-		{
-			ViewBag.CheckinDate = vehicle.CheckIn;
-			ViewBag.CheckoutDate = GetDateNow();
-			ViewBag.Regnum = vehicle.Reg;
-			var tuples = Price(vehicle.CheckIn, GetDateNow());
-			ViewBag.TotalTime = tuples.Item1;
-			ViewBag.Price = tuples.Item2;
-			return View();
+		{																			//Checkout
+			Receipt receipt = new Receipt(vehicle.Id, vehicle.Reg, vehicle.CheckIn, DateTime.Now);
+			return View(receipt);
 		}
+
 		[HttpPost, ActionName("Receipt")]
 		[ValidateAntiForgeryToken]
 		public ActionResult ReceiptConfirmed()
@@ -98,6 +94,7 @@ namespace Garage2.Controllers
 		[ValidateAntiForgeryToken]
 		public ActionResult Edit([Bind(Include = "Id,Reg,Type,Brand,Color,Numberofwheels,CheckIn")] Vehicle vehicle)
 		{
+
 			if (ModelState.IsValid)
 			{
 				//TODO: protect from date changed trhough the view
@@ -148,14 +145,6 @@ namespace Garage2.Controllers
 			base.Dispose(disposing);
 		}
 
-		private Tuple<string, string> Price(DateTime checkIn, DateTime checkOut)
-		{
-			TimeSpan parkedTime = checkOut.Subtract(checkIn);
-			double parkedTimeInMinutes = parkedTime.TotalMinutes;
-			//var hour = Math.Floor(parkedTimeInMinutes / 60);
-			//var Minute = Math.Ceiling(parkedTimeInMinutes - (hour * 60));
-			var TotalPrice = Math.Ceiling(parkedTimeInMinutes * 10);
-			return Tuple.Create(parkedTime.ToString(@"d\.h\:mm"), TotalPrice.ToString());
-		}
+		
 	}
 }

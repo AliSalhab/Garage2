@@ -55,6 +55,13 @@
 		</div>
 	</div>
 
+	<asp:textbox id="TextBox1" runat="server"></asp:textbox>
+	<asp:CustomValidator id="CustomValidator1" runat="server"
+						 OnServerValidate="TextValidate"
+						 ControlToValidate="TextBox1"
+						 ErrorMessage="Text must be 8 or more characters.">
+	</asp:CustomValidator>
+
 	<div class="form-group">
 		<div class="col-md-offset-2 col-md-10">
 			<input type="submit" value="Park" class="btn btn-primary" />

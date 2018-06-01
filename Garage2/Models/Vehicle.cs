@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Garage2.Validations;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -11,6 +12,7 @@ namespace Garage2.Models
 		public int Id { get; set; }
 		public Brand Brand { get; set; }
 		public TypeVehicle Type { get; set; }
+		[Custom_Validations,Required]
 		public string Reg { get; set; }		
 		public Color Color { get; set; }
 		public Numberofwheels Wheels { get; set; }

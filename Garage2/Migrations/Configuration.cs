@@ -17,8 +17,7 @@ namespace Garage2.Migrations
         {
 			context.Vehicle.AddOrUpdate(
 				p=>p.Reg,
-				new Vehicle {}
-				);
+				new Vehicle {Reg="abc123",Brand=Brand.Acura,Color=Color.Salmon,Type=TypeVehicle.Boat,Wheels=Numberofwheels.Four,CheckIn=DateTime.Now}	);
 
 		}
     }
