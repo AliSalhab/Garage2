@@ -1,10 +1,51 @@
-﻿@model IEnumerable<Garage2.Models.Vehicle>
+﻿
+@model IEnumerable<Garage2.Models.Vehicle>
 
 @{
-    ViewBag.Title = "Index";
+	ViewBag.Title = "Index";
 }
 
 <h2>Parked Vehicles</h2>
+
+
+
+@using (Html.BeginForm("search", "Vehicles", FormMethod.Post))
+{
+	@Html.AntiForgeryToken()
+
+	<div class="form-horizontal">
+		<dl class="dl-horizontal">
+			<dt>
+				Search by:
+			</dt>
+			<dd>
+				@*@Html.RadioButton("fgfg", "Reg") <span>Reg</spa*@
+				<form>
+					<div class="radio ">
+						<label><input type="radio" name="filter" value="Reg">Reg</label>
+					</div>
+					<div class="radio">
+						<label><input type="radio" name="filter" value="Brand">Brand</label>
+					</div>
+					<div class="radio">
+						<label><input type="radio" name="filter" value="Type">Type</label>
+					</div>
+				</form>
+			</dd>
+			<dd>
+				<input type="text" name="search"> <input type="submit" value="search" class="btn btn-info" />
+			</dd>
+			<p>@ViewBag.output</p>
+		</dl>
+	</div>
+
+}
+     
+@section Scripts {
+	@Scripts.Render("~/bundles/jqueryval")
+}
+
+
 
 
 <table class="table">
@@ -19,43 +60,32 @@
 			@Html.DisplayNameFor(model => model.Brand)
 		</th>
 		<th>
-			@Html.DisplayNameFor(model => model.Color)
-		</th>
-		<th>
-			@Html.DisplayNameFor(model => model.Wheels)
-		</th>
-		<th>
 			@Html.DisplayNameFor(model => model.CheckIn)
 		</th>
 		<th></th>
 	</tr>
 
-@foreach (var item in Model) {
-	<tr>
-		<td>
-			@Html.DisplayFor(modelItem => item.Reg)
-		</td>
-		<td>
-			@Html.DisplayFor(modelItem => item.Type)
-		</td>
-		<td>
-			@Html.DisplayFor(modelItem => item.Brand)
-		</td>
-		<td>
-			@Html.DisplayFor(modelItem => item.Color)
-		</td>
-		<td>
-			@Html.DisplayFor(modelItem => item.Wheels)
-		</td>
-		<td>
-			@Html.DisplayFor(modelItem => item.CheckIn)
-		</td>
-		<td>
-			@Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-			@Html.ActionLink("Details", "Details", new { id = item.Id }) |
-			@Html.ActionLink("Check out", "Delete", new { id = item.Id })
-		</td>
-	</tr>
-}
+	@foreach (var item in Model)
+	{
+		<tr>
+			<td>
+				@Html.DisplayFor(modelItem => item.Reg)
+			</td>
+			<td>
+				@Html.DisplayFor(modelItem => item.Type)
+			</td>
+			<td>
+				@Html.DisplayFor(modelItem => item.Brand)
+			</td>
+			<td>
+				@Html.DisplayFor(modelItem => item.CheckIn)
+			</td>
+			<td>
+				@Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+				@Html.ActionLink("Details", "Details", new { id = item.Id }) |
+				@Html.ActionLink("Check out", "Delete", new { id = item.Id })
+			</td>
+		</tr>
+	}
 
 </table>

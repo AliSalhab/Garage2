@@ -14,15 +14,69 @@ namespace Garage2.Controllers
 	public class VehiclesController : Controller
 	{
 		private VehicleDb db = new VehicleDb();
+		private List<Vehicle> empty = new List<Vehicle>();
 
 		// GET: Vehicles
-		public ActionResult Index()
+		public ActionResult Index(string a, string b)
 		{
-			return View(db.Vehicle.ToList());
+			switch (a)
+			{
+				case "Reg":
+					if (db.Vehicle.Where(i => i.Reg == b).ToList().Count() > 0)
+					{
+						return View(db.Vehicle.Where(i => i.Reg == b).ToList());
+					}
+					else
+					{
+						ViewBag.output = ($".... {b} couldn't be found....");
+						return View(empty);
+					}
+				case "Type":
+					if (db.Vehicle.Where(i => i.Type.ToString() == b).ToList().Count()>0)
+					{
+						return View(db.Vehicle.Where(i => i.Type.ToString().ToLower() == b.ToLower()).ToList());
+					}
+					else
+					{
+						ViewBag.output = ($".... {b} couldn't be found....");
+						return View(empty);
+					}
+				case "Brand":
+					if (db.Vehicle.Where(i => i.Brand.ToString() == b).ToList().Count() > 0)
+					{
+						return View(db.Vehicle.Where(i => i.Brand.ToString().ToLower() == b.ToLower()).ToList());
+					}
+					else
+					{
+						ViewBag.output = ($".... {b} couldn't be found....");
+						return View(empty);
+					}
+				default:
+					if (a == null && b == null)
+					{ return View(db.Vehicle.ToList()); }
+					else if (a == null || b == null)
+					{
+						ViewBag.output = ("....Please select a filter and write an input....");
+						return View(empty);
+					}
+					else
+					{
+						ViewBag.output = ("....The garage is empty....");
+						return View(empty);
+					}
+			}
+
+		}
+
+		[HttpPost, ActionName("search")]
+		[ValidateAntiForgeryToken]
+		public ActionResult searchConfirmed(string filter, string search)
+		{
+			return RedirectToAction("Index", new { a = filter, b = search });
 		}
 
 		public ActionResult Receipt(Vehicle vehicle)
-		{																			//Checkout
+		{                                                                           //Checkout
 			Receipt receipt = new Receipt(vehicle.Id, vehicle.Reg, vehicle.CheckIn, DateTime.Now);
 			return View(receipt);
 		}
@@ -145,6 +199,6 @@ namespace Garage2.Controllers
 			base.Dispose(disposing);
 		}
 
-		
+
 	}
 }
