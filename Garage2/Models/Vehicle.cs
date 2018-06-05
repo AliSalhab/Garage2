@@ -114,13 +114,20 @@ namespace Garage2.Models
 	}
 	public enum Numberofwheels
 	{
-		Zero=0,
-		Two=2,
-		Three=3,
-		Four=4,
-		Six=6,
-		Eight=8,
-		Twelve=12
+		[Display(Name = "0")]
+		Zero =0,
+		[Display(Name = "2")]
+		Two =2,
+		[Display(Name = "3")]
+		Three =3,
+		[Display(Name = "4")]
+		Four =4,
+		[Display(Name = "6")]
+		Six =6,
+		[Display(Name = "8")]
+		Eight =8,
+		[Display(Name = "12")]
+		Twelve =12
 	}
 	
 

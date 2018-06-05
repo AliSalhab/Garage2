@@ -20,6 +20,9 @@ namespace Garage2.Controllers
 		// GET: Vehicles
 		public ActionResult Index(string a, string b)
 		{
+			//TODO: can be refactorised
+			//and add functionality to hide input field unless the reg radio button is pressed
+			//all other radio buttons should show an enum drop down list
 			switch (a)
 			{
 				case "Reg":
@@ -78,6 +81,7 @@ namespace Garage2.Controllers
 
 		public ActionResult Statistics()
 		{
+			//TODO: Refactorise and improve how to aquire these values
 			Statistics statistics = new Statistics(
 			db.Vehicle.Where(i => i.Type.ToString() == "Car").Count(),
 			db.Vehicle.Where(i => i.Type.ToString() == "Bus").Count(),
@@ -93,6 +97,7 @@ namespace Garage2.Controllers
 
 		public ActionResult GetChartImage()
 		{
+			//HACK: we shouldn't do like this!
 			int cars = db.Vehicle.Where(i => i.Type.ToString() == "Car").Count();
 			int buses = db.Vehicle.Where(i => i.Type.ToString() == "Bus").Count();
 			int motorcycles = db.Vehicle.Where(i => i.Type.ToString() == "Motorcycle").Count();

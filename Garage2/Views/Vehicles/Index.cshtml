@@ -4,86 +4,87 @@
 @{
 	ViewBag.Title = "Index";
 }
-
-<h2>Parked Vehicles</h2>
-
-
-
-@using (Html.BeginForm("search", "Vehicles", FormMethod.Post))
-{
-	@Html.AntiForgeryToken()
-
-	<div class="form-horizontal">
-		<dl class="dl-horizontal">
-			<dt>
-				Search by:
-			</dt>
-			<dd>
-				<form>
-					<div>
-						@*<label class="radio"><input type="radio" name="filter" value="Reg">Reg</label>
-		<label class="radio"><input type="radio" name="filter" value="Brand">Brand</label>
-		<label class="radio"><input type="radio" name="filter" value="Type">Type</label>*@
-						@Html.RadioButton("filter", "Reg") <span>Reg</span>
-						@Html.RadioButton("filter", "Brand") <span>Brand</span>
-						@Html.RadioButton("filter", "Type") <span>Type</span>
-					</div>
-				</form>
-			</dd>
-			<dd>
-				<input type="text" name="search"> <input type="submit" value="search" class="btn btn-info" />
-			</dd>
-			<p>@ViewBag.output</p>
-		</dl>
-	</div>
-
-}
-     
-@section Scripts {
-	@Scripts.Render("~/bundles/jqueryval")
-}
+<div class="container tablebackground">
+	<h2>Parked Vehicles</h2>
 
 
 
-
-<table class="table tablebackground">
-	<tr>
-		<th>
-			@Html.DisplayNameFor(model => model.Reg)
-		</th>
-		<th>
-			@Html.DisplayNameFor(model => model.Type)
-		</th>
-		<th>
-			@Html.DisplayNameFor(model => model.Brand)
-		</th>
-		<th>
-			@Html.DisplayNameFor(model => model.CheckIn)
-		</th>
-		<th></th>
-	</tr>
-
-	@foreach (var item in Model)
+	@using (Html.BeginForm("search", "Vehicles", FormMethod.Post))
 	{
-		<tr>
-			<td>
-				@Html.DisplayFor(modelItem => item.Reg)
-			</td>
-			<td>
-				@Html.DisplayFor(modelItem => item.Type)
-			</td>
-			<td>
-				@Html.DisplayFor(modelItem => item.Brand)
-			</td>
-			<td>
-				@Html.DisplayFor(modelItem => item.CheckIn)
-			</td>
-			<td>
-				@Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-				@Html.ActionLink("Details", "Details", new { id = item.Id }) |
-				@Html.ActionLink("Check out", "Delete", new { id = item.Id })
-			</td>
-		</tr>
+		@Html.AntiForgeryToken()
+
+		<div class="form-horizontal">
+			<dl class="dl-horizontal">
+				<dt>
+					Search by:
+				</dt>
+				<dd>
+					<form>
+						<div>
+							@*<label class="radio"><input type="radio" name="filter" value="Reg">Reg</label>
+								<label class="radio"><input type="radio" name="filter" value="Brand">Brand</label>
+								<label class="radio"><input type="radio" name="filter" value="Type">Type</label>*@
+							@Html.RadioButton("filter", "Reg") <span>Reg</span>
+							@Html.RadioButton("filter", "Brand") <span>Brand</span>
+							@Html.RadioButton("filter", "Type") <span>Type</span>
+						</div>
+					</form>
+				</dd>
+				<dd>
+					<input type="text" name="search"> <input type="submit" value="search" class="btn btn-info" />
+				</dd>
+				<p>@ViewBag.output</p>
+			</dl>
+		</div>
+
 	}
 
-</table>
+	@section Scripts {
+		@Scripts.Render("~/bundles/jqueryval")
+	}
+
+
+
+
+	<table class="table">
+		<tr>
+			<th>
+				@Html.DisplayNameFor(model => model.Reg)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.Type)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.Brand)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.CheckIn)
+			</th>
+			<th></th>
+		</tr>
+
+		@foreach (var item in Model)
+		{
+			<tr>
+				<td>
+					@Html.DisplayFor(modelItem => item.Reg)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.Type)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.Brand)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.CheckIn)
+				</td>
+				<td>
+					@Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+					@Html.ActionLink("Details", "Details", new { id = item.Id }) |
+					@Html.ActionLink("Check out", "Delete", new { id = item.Id })
+				</td>
+			</tr>
+		}
+
+	</table>
+</div>

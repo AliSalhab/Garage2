@@ -9,6 +9,7 @@
 
 /* Set padding to keep content from hitting the edges */
 .body-content {
+	padding-top:25px;
     padding-left: 15px;
     padding-right: 15px;
 }
@@ -31,4 +32,5 @@ textarea {
 	background-color: black;
 	opacity: 0.75;
 	border-radius: 25px;
+	padding-bottom: 15px;
 }
