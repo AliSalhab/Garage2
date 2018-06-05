@@ -114,13 +114,13 @@ namespace Garage2.Models
 	}
 	public enum Numberofwheels
 	{
-		Zero,
-		Two,
-		Three,
-		Four,
-		Six,
-		Eight,
-		Twelve
+		Zero=0,
+		Two=2,
+		Three=3,
+		Four=4,
+		Six=6,
+		Eight=8,
+		Twelve=12
 	}
 	
 

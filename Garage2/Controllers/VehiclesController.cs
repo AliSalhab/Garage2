@@ -5,6 +5,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Web;
+using System.Web.Helpers;
 using System.Web.Mvc;
 using Garage2.Database;
 using Garage2.Models;
@@ -32,7 +33,7 @@ namespace Garage2.Controllers
 						return View(empty);
 					}
 				case "Type":
-					if (db.Vehicle.Where(i => i.Type.ToString() == b).ToList().Count()>0)
+					if (db.Vehicle.Where(i => i.Type.ToString() == b).ToList().Count() > 0)
 					{
 						return View(db.Vehicle.Where(i => i.Type.ToString().ToLower() == b.ToLower()).ToList());
 					}
@@ -65,14 +66,75 @@ namespace Garage2.Controllers
 						return View(empty);
 					}
 			}
-
 		}
 
 		[HttpPost, ActionName("search")]
 		[ValidateAntiForgeryToken]
 		public ActionResult searchConfirmed(string filter, string search)
 		{
+
 			return RedirectToAction("Index", new { a = filter, b = search });
+		}
+
+		public ActionResult Statistics()
+		{
+			Statistics statistics = new Statistics(
+			db.Vehicle.Where(i => i.Type.ToString() == "Car").Count(),
+			db.Vehicle.Where(i => i.Type.ToString() == "Bus").Count(),
+			db.Vehicle.Where(i => i.Type.ToString() == "Boat").Count(),
+			db.Vehicle.Where(i => i.Type.ToString() == "Motorcycle").Count(),
+			db.Vehicle.Where(i => i.Type.ToString() == "Airplane").Count(),
+			GetTotalAmountofWheels(),
+			GetTotalAmountofMinutes()
+			);
+
+			return View(statistics);
+		}
+
+		public ActionResult GetChartImage()
+		{
+			int cars = db.Vehicle.Where(i => i.Type.ToString() == "Car").Count();
+			int buses = db.Vehicle.Where(i => i.Type.ToString() == "Bus").Count();
+			int motorcycles = db.Vehicle.Where(i => i.Type.ToString() == "Motorcycle").Count();
+			int boats = db.Vehicle.Where(i => i.Type.ToString() == "Boat").Count();
+			int airplanes = db.Vehicle.Where(i => i.Type.ToString() == "Airplane").Count();
+
+			var myChart = new Chart(width: 600, height: 400, theme: ChartTheme.Vanilla)
+			.AddTitle("Overview")
+			.AddSeries(
+				chartType: "Column",
+				xValue: new[] { "Cars", "Buses", "Motorcycles", "Boats", "Airplanes" },
+				yValues: new[] { cars.ToString(), buses.ToString(), motorcycles.ToString(), boats.ToString(), airplanes.ToString() });
+			return File(myChart.ToWebImage().GetBytes(), "Image/png");
+		}
+
+		private int GetTotalAmountofWheels()
+		{
+			var numberofwheels = from a in db.Vehicle.ToList()
+								 select a.Wheels;
+			int totalWheels = 0;
+			foreach (var item in numberofwheels)
+			{
+				totalWheels += (int)item;
+			}
+
+			return totalWheels;
+		}
+
+		private double GetTotalAmountofMinutes()
+		{
+			var amountofminutes = from a in db.Vehicle.ToList()
+								  select a.CheckIn;
+			double totalminutes = 0;
+			foreach (var item in amountofminutes)
+			{
+				TimeSpan parkedTime = DateTime.Now.Subtract(item);
+				double parkedTimeInMinutes = parkedTime.TotalMinutes;
+
+				totalminutes += parkedTimeInMinutes;
+			}
+
+			return totalminutes;
 		}
 
 		public ActionResult Receipt(Vehicle vehicle)
@@ -113,7 +175,7 @@ namespace Garage2.Controllers
 		// more details see https://go.microsoft.com/fwlink/?LinkId=317598.
 		[HttpPost]
 		[ValidateAntiForgeryToken]
-		public ActionResult Create([Bind(Include = "Id,Reg,Type,Brand,Color,Numberofwheels")] Vehicle vehicle)
+		public ActionResult Create([Bind(Include = "Id,Reg,Type,Brand,Color,Wheels")] Vehicle vehicle)
 		{
 			if (ModelState.IsValid)
 			{
@@ -146,7 +208,7 @@ namespace Garage2.Controllers
 		// more details see https://go.microsoft.com/fwlink/?LinkId=317598.
 		[HttpPost]
 		[ValidateAntiForgeryToken]
-		public ActionResult Edit([Bind(Include = "Id,Reg,Type,Brand,Color,Numberofwheels,CheckIn")] Vehicle vehicle)
+		public ActionResult Edit([Bind(Include = "Id,Reg,Type,Brand,Color,Wheels,CheckIn")] Vehicle vehicle)
 		{
 
 			if (ModelState.IsValid)

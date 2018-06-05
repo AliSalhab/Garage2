@@ -1,0 +1,99 @@
+﻿@model Garage2.Models.Statistics
+
+@{
+
+	ViewBag.Title = "Statistics";
+}
+
+
+<h2>Statistics</h2>
+
+@using (Html.BeginForm())
+{
+	@Html.AntiForgeryToken()
+
+	<div class="container tablebackground">
+
+
+		<dl class="dl-horizontal col-md-12">
+			<dt class="col-lg-6">
+				Total cars:
+			</dt>
+
+			<dd class="col-lg-6">
+				@Html.DisplayFor(model => model.Numberofcar)
+			</dd>
+
+			<dt class="col-lg-6">
+				Total Buses:
+			</dt>
+
+			<dd class="col-lg-6">
+				@Html.DisplayFor(model => model.Numberofbus)
+			</dd>
+
+			<dt class="col-lg-6">
+				Total Boats:
+			</dt>
+
+			<dd class="col-lg-6">
+				@Html.DisplayFor(model => model.Numberofboat)
+			</dd>
+
+			<dt class="col-lg-6">
+				Total Motorcycles:
+			</dt>
+
+			<dd class="col-lg-6">
+				@Html.DisplayFor(model => model.Numberofmotorcycle)
+			</dd>
+
+			<dt class="col-lg-6">
+				Total Airplanes:
+			</dt>
+
+			<dd class="col-lg-6">
+				@Html.DisplayFor(model => model.Numberofairplane)
+			</dd>
+			<dt class="col-lg-6">
+				Total Vehicles:
+			</dt>
+
+			<dd class="col-lg-6">
+				@Html.DisplayFor(model => model.TotalNumberofVehicles)
+			</dd>
+			<dt class="col-lg-6">
+				Total wheels:
+			</dt>
+
+			<dd class="col-lg-6">
+				@Html.DisplayFor(model => model.Totalnumberofwheels)
+			</dd>
+			<dt class="col-lg-6">
+				Total Minutes:
+			</dt>
+
+			<dd class="col-lg-6">
+				@Html.DisplayFor(model => model.TotalMinutes) Minutes
+			</dd>
+			<dt class="col-lg-6">
+				Total Price:
+			</dt>
+
+			<dd class="col-lg-6">
+				@Html.DisplayFor(model => model.TotalPrice) SEK
+			</dd>
+		</dl>
+	</div>
+	<br />
+	<div>
+		<div class="container">
+			<img src="@Url.Action("GetChartImage")" />
+		</div>|
+	</div>
+
+}
+@section Scripts {
+	@Scripts.Render("~/bundles/jqueryval")
+}
+

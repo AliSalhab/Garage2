@@ -26,3 +26,9 @@ select,
 textarea {
     max-width: 280px;
 }
+
+.tablebackground {
+	background-color: black;
+	opacity: 0.75;
+	border-radius: 25px;
+}

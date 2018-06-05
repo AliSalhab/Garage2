@@ -19,16 +19,14 @@
 				Search by:
 			</dt>
 			<dd>
-				@*@Html.RadioButton("fgfg", "Reg") <span>Reg</spa*@
 				<form>
-					<div class="radio ">
-						<label><input type="radio" name="filter" value="Reg">Reg</label>
-					</div>
-					<div class="radio">
-						<label><input type="radio" name="filter" value="Brand">Brand</label>
-					</div>
-					<div class="radio">
-						<label><input type="radio" name="filter" value="Type">Type</label>
+					<div>
+						@*<label class="radio"><input type="radio" name="filter" value="Reg">Reg</label>
+		<label class="radio"><input type="radio" name="filter" value="Brand">Brand</label>
+		<label class="radio"><input type="radio" name="filter" value="Type">Type</label>*@
+						@Html.RadioButton("filter", "Reg") <span>Reg</span>
+						@Html.RadioButton("filter", "Brand") <span>Brand</span>
+						@Html.RadioButton("filter", "Type") <span>Type</span>
 					</div>
 				</form>
 			</dd>
@@ -48,7 +46,7 @@
 
 
 
-<table class="table">
+<table class="table tablebackground">
 	<tr>
 		<th>
 			@Html.DisplayNameFor(model => model.Reg)
